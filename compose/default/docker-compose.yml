@@ -1,0 +1,141 @@
+services:
+
+  accounts-db:
+    image: mysql
+    container_name: accounts-db
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: accounts-db
+    extends:
+      file: common-config.yml
+      service: microservice-db-service
+
+  cards-db:
+    image: mysql
+    container_name: cards-db
+    ports:
+      - 3308:3306
+    environment:
+      MYSQL_DATABASE: cards-db
+    extends:
+      file: common-config.yml
+      service: microservice-db-service
+
+  loans-db:
+    image: mysql
+    container_name: loans-db
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_DATABASE: loans-db
+    extends:
+      file: common-config.yml
+      service: microservice-db-service
+
+  rabbit:
+    image: rabbitmq:3.12-management
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: rabbitmq-diagnostics check_port_connectivity
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
+#
+#  eureka-server:
+#    image: kasiarakos/eureka-server:s8
+#    container_name: eureka-server
+#    ports:
+#      - 8761:8761
+#    depends_on:
+#      config-server:
+#        condition: service_healthy
+#    healthcheck:
+#      test: "curl --fail --silent localhost:8761/actuator/health/readiness | grep UP || exit 1"
+#      retries: 10
+#      interval: 10s
+#      timeout: 5s
+#      start_period: 5s
+#    extends:
+#      file: common-config.yml
+#      service: microservice-config-server-config
+#    environment:
+#      SPRING_APPLICATION_NAME: eureka-server
+#
+#  config-server:
+#    image: kasiarakos/config-server:s8
+#    container_name: config-server
+#    ports:
+#      - 8888:8888
+#    depends_on:
+#      rabbit:
+#        condition: service_healthy
+#    healthcheck:
+#      test: "curl --fail --silent localhost:8888/actuator/health/readiness | grep UP || exit 1"
+#      retries: 10
+#      interval: 10s
+#      timeout: 5s
+#      start_period: 5s
+#    extends:
+#      file: common-config.yml
+#      service: microservice-base-config
+#
+#  account-service:
+#    image: kasiarakos/account-service:s8
+#    container_name: account-service
+#    ports:
+#      - 9090:9090
+#    environment:
+#      SPRING_APPLICATION_NAME: account-service
+#      SPRING_PROFILES_ACTIVE: default
+#      SPRING_DATASOURCE_URL: "jdbc:mysql://accounts-db:3306/accounts-db"
+#      SPRING_CONFIG_IMPORT: configserver:http://config-server:8888/
+#    depends_on:
+#      accounts-db:
+#        condition: service_healthy
+#    extends:
+#      file: common-config.yml
+#      service: microservice-eureka-config
+#
+#  loans-service:
+#    image: kasiarakos/loan-service:s8
+#    container_name: loans-service
+#    ports:
+#      - 8090:8090
+#    environment:
+#      SPRING_APPLICATION_NAME: loan-service
+#      SPRING_DATASOURCE_URL: "jdbc:mysql://loans-db:3306/loans-db"
+#    depends_on:
+#      loans-db:
+#        condition: service_healthy
+#    extends:
+#      file: common-config.yml
+#      service: microservice-eureka-config
+#
+#
+#  card-service:
+#    image: kasiarakos/card-service:s8
+#    container_name: card-service
+#    ports:
+#      - 9000:9000
+#    environment:
+#      SPRING_APPLICATION_NAME: card-service
+#      SPRING_PROFILES_ACTIVE: default
+#      SPRING_DATASOURCE_URL: "jdbc:mysql://cards-db:3306/cards-db"
+#    depends_on:
+#      cards-db:
+#        condition: service_healthy
+#    extends:
+#      file: common-config.yml
+#      service: microservice-eureka-config
+
+networks:
+  eazybank:
+    driver: bridge
