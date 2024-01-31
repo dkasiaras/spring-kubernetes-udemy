@@ -1,0 +1,43 @@
+
+### Create
+POST http://localhost:9090/api/accounts
+Content-Type: application/json
+
+{
+  "name": "dimitris kasiaras",
+  "email": "kasiarakos@gmail.com",
+  "mobileNumber": "6983203139"
+}
+
+### Read
+GET http://localhost:9090/api/accounts?mobileNumber=6983203139
+
+### Update
+PUT http://localhost:9090/api/accounts
+Content-Type: application/json
+
+{
+  "name": "Dimitris Kasiaras",
+  "email": "kasiarakos@gmail.com",
+  "mobileNumber": "6983203139",
+  "account": {
+    "accountNumber": 1118852870,
+    "accountType": "Savings",
+    "branchAddress": "nosokomeiou 18"
+  }
+}
+
+### Delete
+DELETE http://localhost:9090/api/accounts?mobileNumber=6983203139
+
+### Get build info
+GET http://localhost:9090/api/accounts/build-info
+
+### Get java home
+GET http://localhost:9090/api/accounts/java-version
+
+### Get Contact info
+GET http://localhost:9090/api/accounts/contact-info
+
+### Get Customer Details
+GET http://localhost:9090/api/customer-details?mobileNumber=6983203139

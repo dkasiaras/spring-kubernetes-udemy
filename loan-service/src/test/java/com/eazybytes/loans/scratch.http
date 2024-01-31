@@ -1,0 +1,10 @@
+
+### Create
+POST http://localhost:8090/api/create?mobileNumber=6983203139
+Content-Type: application/json
+
+{
+  "name": "dimitris kasiaras",
+  "email": "kasiarakos@gmail.com",
+  "mobileNumber": "6983203139"
+}

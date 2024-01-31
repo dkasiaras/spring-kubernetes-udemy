@@ -1,0 +1,42 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: loan-service
+  config:
+    import: "optional:configserver:http://localhost:8888/"
+
+  datasource:
+    url: jdbc:mysql://localhost:3307/loans-db
+    username: root
+    password: root
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  sql:
+    init:
+      mode: always
+  profiles:
+    active: default
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+info:
+  app:
+    name: "loan-service"
+    description: "EazyBank loans application"
+    version: 1.0.0

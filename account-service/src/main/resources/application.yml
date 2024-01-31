@@ -1,0 +1,36 @@
+server:
+  port: 9090
+
+spring:
+  application:
+    name: account-service
+  config:
+    import: "optional:configserver:http://localhost:8888/"
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/accounts-db
+    username: root
+    password: root
+
+  sql:
+    init:
+      mode: always
+
+  jpa:
+    show-sql: true
+
+build:
+  version: "1.0"
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+info:
+  app:
+    name: "account-service"
+    description: "EazyBank Account application"
+    version: 1.0.0

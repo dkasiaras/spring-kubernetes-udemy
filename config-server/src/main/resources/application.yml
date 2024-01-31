@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: "https://github.com/dkasiaras/config-repository"
+          default-label: master
+          timeout: 5
+          clone-on-start: true
+          force-pull: true
+          searchPaths: '{application}'
+        encrypt:
+          enabled: true
+
+server:
+  port: 8888
+encrypt:
+  key: kasiarakos
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+
