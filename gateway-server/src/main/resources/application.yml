@@ -2,6 +2,12 @@ server:
   port: 10000
 
 spring:
+  data:
+    redis:
+      connect-timeout: 2s
+      host: localhost
+      port: 6379
+      timeout: 1s
   application:
     name: gateway-server
   config:
@@ -12,6 +18,9 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
+      httpclient:
+        connect-timeout: 1000
+        response-timeout: 5s
 
 build:
   version: "1.0"
@@ -49,4 +58,3 @@ resilience4j:
         permitted-number-of-calls-in-half-open-state: 2
         failure-rate-threshold: 50
         wait-duration-in-open-state: 10000
-      

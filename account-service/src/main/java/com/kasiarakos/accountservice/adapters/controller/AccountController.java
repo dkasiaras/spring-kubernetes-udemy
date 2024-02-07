@@ -12,6 +12,8 @@ import com.kasiarakos.accountservice.adapters.dto.CustomerDto;
 import com.kasiarakos.accountservice.adapters.dto.ErrorResponseDto;
 import com.kasiarakos.accountservice.adapters.dto.ResponseDto;
 import com.kasiarakos.accountservice.domain.service.AccountService;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
+import io.github.resilience4j.retry.annotation.Retry;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -102,14 +104,24 @@ public class AccountController {
           .body(new ResponseDto(STATUS_417, MESSAGE_500));
     }
   }
+  @Retry(name = "getBuildInfo", fallbackMethod = "getBuildVersionFallback")
   @GetMapping("build-info")
   public String getBuildVersion() {
     return this.buildVersion;
   }
 
+  public String getBuildVersionFallback(Throwable throwable) {
+    return "0.9";
+  }
+
+  @RateLimiter(name = "getJavaVersion", fallbackMethod = "getJavaVersionFallback")
   @GetMapping("java-version")
   public String getJavaVersion() {
     return this.environment.getProperty("JAVA_HOME");
+  }
+
+  public String getJavaVersionFallback(Throwable throwable) {
+    return "JAVA 17";
   }
 
   @GetMapping("contact-info")

@@ -8,3 +8,13 @@ Content-Type: application/json
   "email": "kasiarakos@gmail.com",
   "mobileNumber": "6983203139"
 }
+
+
+
+### Contact info internal
+GET http://localhost:8090/api/contact-info
+Content-Type: application/json
+
+### Contact Info
+GET http://localhost:10000/kasiarakos/loan-service/api/contact-info
+Content-Type: application/json

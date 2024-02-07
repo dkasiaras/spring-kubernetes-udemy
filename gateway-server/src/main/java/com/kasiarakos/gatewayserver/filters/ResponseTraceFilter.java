@@ -10,23 +10,25 @@ import reactor.core.publisher.Mono;
 
 @Component
 public class ResponseTraceFilter {
-  private static final Logger logger = LoggerFactory.getLogger(ResponseTraceFilter.class);
+    private static final Logger logger = LoggerFactory.getLogger(ResponseTraceFilter.class);
 
-  private final FilterUtility filterUtility;
+    private final FilterUtility filterUtility;
 
-  public ResponseTraceFilter(FilterUtility filterUtility) {
-    this.filterUtility = filterUtility;
-  }
+    public ResponseTraceFilter(FilterUtility filterUtility) {
+        this.filterUtility = filterUtility;
+    }
 
-  @Bean
-  public GlobalFilter postGlobalFilter() {
-    return (exchange, chain) -> {
-      return chain.filter(exchange).then(Mono.fromRunnable(() -> {
-        HttpHeaders requestHeaders = exchange.getRequest().getHeaders();
-        String correlationId = filterUtility.getCorrelationId(requestHeaders);
-        logger.debug("Updated the correlation id to the outbound headers: {}", correlationId);
-        exchange.getResponse().getHeaders().add(FilterUtility.CORRELATION_ID, correlationId);
-      }));
-    };
-  }
+    @Bean
+    public GlobalFilter postGlobalFilter() {
+        return (exchange, chain) ->
+                chain.filter(exchange).then(Mono.fromRunnable(() -> {
+                    HttpHeaders requestHeaders = exchange.getRequest().getHeaders();
+                    if (exchange.getResponse().getHeaders().get(FilterUtility.CORRELATION_ID) != null) {
+                        String correlationId = filterUtility.getCorrelationId(requestHeaders);
+                        logger.debug("Updated the correlation id to the outbound headers: {}", correlationId);
+                        exchange.getResponse().getHeaders().add(FilterUtility.CORRELATION_ID, correlationId);
+                    }
+                }));
+
+    }
 }

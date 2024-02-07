@@ -1,1 +1,1 @@
-{"image":"kasiarakos/loan-service:s8","imageId":"sha256:af10f9fd5dc91782eec7f9246e5d555cc2e7b20488a1f25c1d60e3079af17500","imageDigest":"sha256:816c86ee21e517281c031ae03b30705eb7d7f959a12bbdd3b10a3d5eac072e42","tags":["s8"],"imagePushed":false}
+{"image":"kasiarakos/loan-service:s10","imageId":"sha256:080a79a31982158730ceea77969a4018f03577fdad1cb04079caf9c1b785eb70","imageDigest":"sha256:b08798e96bce562e141679457362daa4b1ab748b1c6f725f15fb834da5214a77","tags":["s10"],"imagePushed":false}

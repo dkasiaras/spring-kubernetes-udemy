@@ -38,6 +38,10 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -74,7 +78,7 @@
 				<version>3.4.0</version>
 				<configuration>
 					<to>
-						<image>kasiarakos/gateway-server:s8</image>
+						<image>kasiarakos/gateway-server:s10</image>
 					</to>
 				</configuration>
 			</plugin>

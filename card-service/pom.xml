@@ -104,7 +104,7 @@
 				<version>3.4.0</version>
 				<configuration>
 					<to>
-						<image>kasiarakos/card-service:s8</image>
+						<image>kasiarakos/card-service:s10</image>
 					</to>
 				</configuration>
 			</plugin>

@@ -164,4 +164,10 @@ public class LoansController {
         }
     }
 
+
+    @GetMapping("/contact-info")
+    public String getContactInfo() {
+        return "loans contact info";
+    }
+
 }
