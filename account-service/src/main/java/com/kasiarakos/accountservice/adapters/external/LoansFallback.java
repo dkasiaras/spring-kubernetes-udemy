@@ -8,7 +8,6 @@ public class LoansFallback implements LoansClient {
 
 
     @Override
-
     public ResponseEntity<LoansDto> fetchLoanDetails(String mobileNumber) {
         return null;
     }

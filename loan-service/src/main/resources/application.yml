@@ -41,6 +41,9 @@ management:
   info:
     env:
       enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
 
 eureka:
   instance:
@@ -54,3 +57,7 @@ info:
     name: "loan-service"
     description: "EazyBank loans application"
     version: 1.0.0
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"

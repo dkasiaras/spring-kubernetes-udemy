@@ -17,17 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @RequestMapping("/api/customer-details")
 public class CustomerController {
+    private final CustomerService customerService;
 
-  private final CustomerService customerService;
+    @GetMapping
+    public ResponseEntity<CustomerDetailsDto> fetchCustomerDetails(@Pattern(regexp = "^$|[0-9]{10}") @RequestParam String mobileNumber) {
 
-
-  @GetMapping
-  public ResponseEntity<CustomerDetailsDto> fetchCustomerDetails(
-          @RequestHeader("kasiarakos-correlation-id") String correlationId,
-          @Pattern(regexp = "^$|[0-9]{10}") @RequestParam String mobileNumber) {
-
-    log.info("{} fetchCustomerDetails {}",  correlationId, mobileNumber);
-    var customerDetails = this.customerService.fetchCustomerDetails(mobileNumber);
-    return ResponseEntity.ok(customerDetails);
-  }
+        log.info("fetchCustomerDetails {} start", mobileNumber);
+        var customerDetails = this.customerService.fetchCustomerDetails(mobileNumber);
+        log.info("fetchCustomerDetails {} end", mobileNumber);
+        return ResponseEntity.ok(customerDetails);
+    }
 }

@@ -64,6 +64,9 @@ resilience4j:
         limit-refresh-period: 5000
         limit-for-period: 1
 
+logging:
+  pattern:
+    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
 
 management:
   endpoints:
@@ -84,3 +87,6 @@ management:
   info:
     env:
       enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}

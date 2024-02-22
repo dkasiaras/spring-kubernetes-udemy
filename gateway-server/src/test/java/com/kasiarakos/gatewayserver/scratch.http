@@ -1,12 +1,12 @@
 
 ### Create
-POST http://localhost:10000/kasiarakos/account-service/api/accounts
+mvn help:effective-settingsPOST http://localhost:10000/kasiarakos/account-service/api/accounts
 Content-Type: application/json
 
 {
   "name": "dimitris kasiaras",
   "email": "kasiarakos@gmail.com",
-  "mobileNumber": "6983203137"
+  "mobileNumber": "6983203139"
 }
 
 ### Read
@@ -40,4 +40,4 @@ GET http://localhost:9090/api/accounts/java-version
 GET http://localhost:9090/api/accounts/contact-info
 
 ### Get Customer Details
-GET http://localhost:9090/api/customer-details?mobileNumber=6983203139
+GET http://localhost:10000/kasiarakos/account-service/api/customer-details?mobileNumber=6983203139
