@@ -118,7 +118,7 @@
 				<version>3.4.0</version>
 				<configuration>
 					<to>
-						<image>kasiarakos/loan-service:s13</image>
+						<image>kasiarakos/loan-service:s14</image>
 					</to>
 				</configuration>
 			</plugin>

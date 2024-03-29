@@ -1,0 +1,46 @@
+{{- define "common.database" -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.dbName }}
+  labels:
+    app: {{ .Values.dbName }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.dbName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.dbName }}
+    spec:
+      containers:
+        - name: accounts-db
+          image: mysql
+          env:
+            - name: MYSQL_DATABASE
+              value: {{ .Values.dbName }}
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
+          ports:
+            - name: http
+              containerPort: 3306
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.dbName }}
+  labels:
+    app: {{ .Values.dbName }}
+spec:
+  selector:
+    app: {{ .Values.dbName }}
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 3306
+      targetPort: 3306
+
+{{- end -}}

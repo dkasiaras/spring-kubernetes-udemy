@@ -1,0 +1,32 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+deploymentName: loan-deployment
+serviceName: loan-service
+appLabel: loan-service
+appName: loan-service
+
+replicaCount: 1
+
+image:
+  repository: kasiarakos/loan-service
+  tag: s14
+
+containerPort: 9010
+
+service:
+  type: ClusterIP
+  port: 9010
+  targetPort: 9010
+
+appname_enabled: true
+profile_enabled: false
+config_enabled: false
+eureka_enabled: false
+resouceserver_enabled: false
+otel_enabled: false
+kafka_enabled: false
+rabbit_enabled: true
+
+has_database: true
+jdbc_url: jdbc:mysql://loans-db:3306/loans-db

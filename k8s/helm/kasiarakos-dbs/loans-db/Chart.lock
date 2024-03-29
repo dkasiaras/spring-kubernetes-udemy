@@ -1,0 +1,6 @@
+dependencies:
+- name: kasiarakos-bank-common
+  repository: file://../../kasiarakos-bank-common
+  version: 0.1.0
+digest: sha256:3d123e6f0e96ca4bd15a9f1a38dd04052ba5af05a66f23e837a4bb5f037fde17
+generated: "2024-03-21T15:47:04.864095+02:00"

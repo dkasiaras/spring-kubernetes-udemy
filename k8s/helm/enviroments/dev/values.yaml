@@ -1,0 +1,11 @@
+global:
+  configMapName: kasiarakos-configmap
+  activeProfile: default
+  configServerURL: configserver:http://config-server:8888/
+  eurekaServerURL: http://eureka-server:8761/eureka/
+  keyCloakURL: http://keycloak.default.svc.cluster.local:80/realms/master/protocol/openid-connect/certs
+  openTelemetryJavaAgent: "-javaagent:/app/libs/opentelemetry-javaagent-1.32.0.jar"
+  otelExporterEndPoint: http://tempo-grafana-tempo-distributor:4317
+  otelMetricsExporter: none
+  kafkaBrokerURL: kafka-controller-0.kafka-controller-headless.default.svc.cluster.local:9092
+  rabbitBrokerHost: rabbit-rabbitmq.default.svc.cluster.local

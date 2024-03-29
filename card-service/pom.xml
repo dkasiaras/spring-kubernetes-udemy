@@ -115,7 +115,7 @@
 				<version>3.4.0</version>
 				<configuration>
 					<to>
-						<image>kasiarakos/card-service:s13</image>
+						<image>kasiarakos/card-service:s14</image>
 					</to>
 				</configuration>
 			</plugin>

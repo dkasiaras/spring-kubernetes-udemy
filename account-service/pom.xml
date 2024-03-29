@@ -125,7 +125,7 @@
                 <version>3.4.0</version>
                 <configuration>
                     <to>
-                        <image>kasiarakos/account-service:s13</image>
+                        <image>kasiarakos/account-service:s14</image>
                     </to>
                 </configuration>
             </plugin>

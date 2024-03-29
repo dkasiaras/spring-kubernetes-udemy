@@ -1,0 +1,31 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+deploymentName: accounts-deployment
+serviceName: account-service
+appLabel: account-service
+appName: account-service
+
+replicaCount: 1
+
+image:
+  repository: kasiarakos/account-service
+  tag: s14
+
+containerPort: 9090
+
+service:
+  type: ClusterIP
+  port: 9090
+  targetPort: 9090
+
+appname_enabled: true
+profile_enabled: true
+config_enabled: true
+eureka_enabled: true
+resouceserver_enabled: false
+otel_enabled: true
+kafka_enabled: false
+rabbit_enabled: true
+has_database: true
+jdbc_url: jdbc:mysql://accounts-db:3306/accounts-db

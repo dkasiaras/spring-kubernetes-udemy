@@ -1,6 +1,7 @@
 package com.kasiarakos.accountservice.domain.service;
 
 import com.kasiarakos.accountservice.adapters.dto.AccountDto;
+import com.kasiarakos.accountservice.adapters.dto.AccountMessageDto;
 import com.kasiarakos.accountservice.adapters.dto.CustomerDto;
 import com.kasiarakos.accountservice.adapters.storage.entity.AccountEntity;
 import com.kasiarakos.accountservice.adapters.storage.entity.CustomerEntity;
@@ -11,6 +12,8 @@ import com.kasiarakos.accountservice.adapters.storage.repository.CustomerReposit
 import com.kasiarakos.accountservice.domain.exception.CustomerAlreadyExistsException;
 import com.kasiarakos.accountservice.domain.exception.ResourceNotFoundException;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
@@ -18,12 +21,14 @@ import java.util.Random;
 import static com.kasiarakos.accountservice.adapters.controller.constants.AccountConstants.ADDRESS;
 import static com.kasiarakos.accountservice.adapters.controller.constants.AccountConstants.SAVINGS;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class AccountService {
 
   private final AccountRepository accountRepository;
   private final CustomerRepository customerRepository;
+  private final StreamBridge streamBridge;
 
   public void createAccount(CustomerDto customerDto) {
     var customerEntity = CustomerMapper.toEntity(customerDto);
@@ -33,7 +38,8 @@ public class AccountService {
       throw new CustomerAlreadyExistsException("already exists");
     }
     var savedCustomer = this.customerRepository.save(customerEntity);
-    accountRepository.save(createAccount(savedCustomer));
+    var accountEntity = accountRepository.save(createAccount(savedCustomer));
+    sendCommunication(accountEntity, savedCustomer);
   }
 
   public CustomerDto fetchCustomerByMobileNumber(String mobileNumber) {
@@ -96,6 +102,19 @@ public class AccountService {
     return true;
   }
 
+  public boolean updateCommunicationStatus(Long accountNumber) {
+    boolean isUpdated = false;
+    if(accountNumber !=null ){
+      AccountEntity accountEntity = accountRepository.findById(accountNumber).orElseThrow(
+              () -> new ResourceNotFoundException("Account", "AccountNumber", accountNumber.toString())
+      );
+      accountEntity.setCommunicationSw(true);
+      accountRepository.save(accountEntity);
+      isUpdated = true;
+    }
+    return  isUpdated;
+  }
+
   private AccountEntity createAccount(CustomerEntity customer) {
     AccountEntity account = new AccountEntity();
     account.setCustomerId(customer.getCustomerId());
@@ -104,5 +123,13 @@ public class AccountService {
     account.setAccountType(SAVINGS);
     account.setBranchAddress(ADDRESS);
     return account;
+  }
+
+  private void sendCommunication(AccountEntity account, CustomerEntity customer) {
+    var accountsMsgDto = new AccountMessageDto(account.getAccountNumber(), customer.getName(),
+            customer.getEmail(), customer.getMobileNumber());
+    log.info("Sending Communication request for the details: {}", accountsMsgDto);
+    var result = streamBridge.send("sendCommunication-out-0", accountsMsgDto);
+    log.info("Is the Communication request successfully triggered ? : {}", result);
   }
 }

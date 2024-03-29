@@ -21,12 +21,19 @@ public class SecurityConfig {
                                                             Converter<Jwt, Mono<AbstractAuthenticationToken>> jwtMonoConverter) {
 
         serverHttpSecurity.authorizeExchange(exchanges -> exchanges.pathMatchers(HttpMethod.GET).permitAll()
+                        .pathMatchers("/kasiarakos/account-service/**").permitAll()
+                        .pathMatchers("/kasiarakos/card-service/**").permitAll()
+                        .pathMatchers("/kasiarakos/loan-service/**").permitAll());
+        serverHttpSecurity.csrf(ServerHttpSecurity.CsrfSpec::disable);
+        return serverHttpSecurity.build();
+
+        /*serverHttpSecurity.authorizeExchange(exchanges -> exchanges.pathMatchers(HttpMethod.GET).permitAll()
                         .pathMatchers("/kasiarakos/account-service/**").hasRole("ACCOUNTS")
                         .pathMatchers("/kasiarakos/card-service/**").hasRole("CARDS")
                         .pathMatchers("/kasiarakos/loan-service/**").hasRole("LOANS"))
                 .oauth2ResourceServer(oauth2Config -> oauth2Config.jwt(jwtConfig -> jwtConfig.jwtAuthenticationConverter(jwtMonoConverter)));
         serverHttpSecurity.csrf(ServerHttpSecurity.CsrfSpec::disable);
-        return serverHttpSecurity.build();
+        return serverHttpSecurity.build();*/
     }
 
     @Bean

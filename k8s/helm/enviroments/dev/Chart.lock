@@ -1,0 +1,27 @@
+dependencies:
+- name: kasiarakos-bank-common
+  repository: file://../../kasiarakos-bank-common
+  version: 0.1.0
+- name: config-server
+  repository: file://../../kasiarakos-bank-services/config-server
+  version: 0.1.0
+- name: eureka-server
+  repository: file://../../kasiarakos-bank-services/eureka-server
+  version: 0.1.0
+- name: account-service
+  repository: file://../../kasiarakos-bank-services/account-service
+  version: 0.1.0
+- name: card-service
+  repository: file://../../kasiarakos-bank-services/card-service
+  version: 0.1.0
+- name: loan-service
+  repository: file://../../kasiarakos-bank-services/loan-service
+  version: 0.1.0
+- name: gateway-server
+  repository: file://../../kasiarakos-bank-services/gateway-server
+  version: 0.1.0
+- name: message-service
+  repository: file://../../kasiarakos-bank-services/message-service
+  version: 0.1.0
+digest: sha256:6f17a1a14a3ecc16d12fbcc1142f873cb190c3c522fac06766c07d1634c164ba
+generated: "2024-03-08T14:54:57.49017+02:00"

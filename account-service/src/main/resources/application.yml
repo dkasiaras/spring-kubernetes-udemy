@@ -11,6 +11,16 @@ spring:
     openfeign:
       circuitbreaker:
         enabled: true
+    function:
+      definition: updateCommunication
+    stream:
+      bindings:
+        sendCommunication-out-0:
+          destination: ${spring.application.name}
+        updateCommunication-in-0:
+          destination: message-service
+          group: ${spring.application.name}
+
 
   datasource:
     url: jdbc:mysql://localhost:3306/accounts-db

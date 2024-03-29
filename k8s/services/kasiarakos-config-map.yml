@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kasiarakos-config-map
+data:
+  SPRING_PROFILE_ACTIVE: "prod"
+  SPRING_CONFIG_IMPORT: "configserver:http://config-server:8888"
+  EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server:8761/eureka/"
+  CONFIG_SERVER_APPLICATION_NAME: "config-server"
+  EUREKA_APPLICATION_NAME: "eureka-server"
+  ACCOUNT_SERVICE_APPLICATION_NAME: "account-service"
+  LOAN_SERVICE_APPLICATION_NAME: "loan-service"
+  CARD_SERVICE_APPLICATION_NAME: "card-service"
+  GATEWAY_SERVER_APPLICATION_NAME: "gateway-server"
+  KEYCLOAK_ADMIN: "admin"
+  KEYCLOAK_ADMIN_PASSWORD: "admin"
+  SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI: "http://keycloak:8080/realms/master/protocol/openid-connect/certs"
+

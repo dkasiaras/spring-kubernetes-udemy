@@ -67,7 +67,7 @@
 				<version>3.4.0</version>
 				<configuration>
 					<to>
-						<image>kasiarakos/config-server:s13</image>
+						<image>kasiarakos/config-server:s14</image>
 					</to>
 				</configuration>
 			</plugin>
